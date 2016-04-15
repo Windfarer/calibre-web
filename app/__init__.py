@@ -28,7 +28,7 @@ from uuid import uuid4
 #     use_generic_pdf_cover = False
 # except ImportError, e:
 #     use_generic_pdf_cover = True
-use_generic_pdf_cover
+use_generic_pdf_cover = False
 from shutil import copyfile
 
 app = (Flask(__name__))
