@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cps import db, ub
-from cps import config
+import db, ub
+import config
 from flask import current_app as app
 
 import smtplib
@@ -177,23 +177,23 @@ def get_normalized_author(value):
     value = re.sub('[^\w,\s]', '', value, flags=re.U)
     value = " ".join(value.split(", ")[::-1])
     return value
-    
+
 def update_dir_stucture(book_id):
     db.session.connection().connection.connection.create_function("title_sort",1,db.title_sort)
     book = db.session.query(db.Books).filter(db.Books.id == book_id).first()
     path = os.path.join(config.DB_ROOT, book.path)
-    
+
     authordir = book.path.split("/")[0]
     new_authordir=get_valid_filename(book.authors[0].name, False)
     titledir = book.path.split("/")[1]
     new_titledir = get_valid_filename(book.title, False) + " (" + str(book_id) + ")"
-    
+
     if titledir != new_titledir:
         new_title_path = os.path.join(os.path.dirname(path), new_titledir)
         os.rename(path, new_title_path)
         path = new_title_path
         book.path = book.path.split("/")[0] + "/" + new_titledir
-    
+
     if authordir != new_authordir:
         new_author_path = os.path.join(os.path.join(config.DB_ROOT, new_authordir), os.path.basename(path))
         os.renames(path, new_author_path)

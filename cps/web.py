@@ -7,7 +7,7 @@ import sys
 import textwrap
 mimetypes.add_type('application/xhtml+xml','.xhtml')
 from flask import Flask, render_template, session, request, Response, redirect, url_for, send_from_directory, make_response, g, flash, abort
-from cps import db, config, ub, helper
+import db, config, ub, helper
 import os
 from sqlalchemy.sql.expression import func
 from sqlalchemy.sql.expression import false
@@ -241,14 +241,14 @@ def get_opds_download_link(book_id, format):
     response = make_response(send_from_directory(os.path.join(config.DB_ROOT, book.path), data.name + "." +format))
     response.headers["Content-Disposition"] = "attachment; filename=%s.%s" % (data.name, format)
     return response
-    
+
 @app.route("/get_authors_json", methods = ['GET', 'POST'])
-def get_authors_json(): 
+def get_authors_json():
     if request.method == "POST":
         form = request.form.to_dict()
         entries = db.session.execute("select name from authors where name like '%" + form['query'] + "%'")
         return json.dumps([dict(r) for r in entries])
-        
+
 
 @app.route("/", defaults={'page': 1})
 @app.route('/page/<int:page>')
@@ -406,7 +406,7 @@ def register():
     error = None
     if not config.PUBLIC_REG:
         abort(404)
-    if current_user is not None and current_user.is_authenticated():
+    if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('index'))
 
     if request.method == "POST":
@@ -442,7 +442,7 @@ def register():
 def login():
     error = None
 
-    if current_user is not None and current_user.is_authenticated():
+    if current_user is not None and current_user.is_authenticated:
         return redirect(url_for('index'))
 
     if request.method == "POST":
@@ -461,7 +461,7 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
-    if current_user is not None and current_user.is_authenticated():
+    if current_user is not None and current_user.is_authenticated:
         logout_user()
     return redirect(request.args.get("next") or url_for("index"))
 
@@ -684,8 +684,8 @@ def edit_book(book_id):
         if book.title != to_save["book_title"]:
             book.title = to_save["book_title"]
             edited_books_id.add(book.id)
- 
-        author_id = book.authors[0].id               
+
+        author_id = book.authors[0].id
         if book.authors[0].name != to_save["author_name"].strip():
             is_author = db.session.query(db.Authors).filter(db.Authors.name == to_save["author_name"].strip()).first()
             edited_books_id.add(book.id)
@@ -706,7 +706,7 @@ def edit_book(book_id):
                 else:
                     book.authors.append(db.Authors(to_save["author_name"].strip(), "", ""))
                 book.authors.remove(db.session.query(db.Authors).get(book.authors[0].id))
-        
+
         if to_save["cover_url"] and os.path.splitext(to_save["cover_url"])[1].lower() == ".jpg":
             img = requests.get(to_save["cover_url"])
             f = open(os.path.join(config.DB_ROOT, book.path, "cover.jpg"), "wb")
@@ -766,10 +766,10 @@ def upload():
         if fileextension.upper() == ".PDF":
             title = filename_root
             author = "Unknown"
-        else: 
+        else:
             flash("Upload is only available for PDF files", category="error")
             return redirect(url_for('index'))
-        
+
         title_dir = helper.get_valid_filename(title, False)
         author_dir = helper.get_valid_filename(author.decode('utf-8'), False)
         data_name = title_dir
@@ -800,7 +800,7 @@ def upload():
         db_book.authors.append(db_author)
         db_data = db.Data(db_book, fileextension.upper()[1:], file_size, data_name)
         db_book.data.append(db_data)
-        
+
         db.session.add(db_book)
         db.session.commit()
     return render_template('edit_book.html', book=db_book)

@@ -1,0 +1,11 @@
+blinker
+flask
+jinja2
+wand
+flask-login
+flask-principal
+sqlalchemy
+SQLAlchemy-FullText-Search
+requests
+configobj
+gunicorn
