@@ -23,11 +23,12 @@ from sqlalchemy.sql import *
 import json
 import datetime
 from uuid import uuid4
-try:
-    from wand.image import Image
-    use_generic_pdf_cover = False
-except ImportError, e:
-    use_generic_pdf_cover = True
+# try:
+#     from wand.image import Image
+#     use_generic_pdf_cover = False
+# except ImportError, e:
+#     use_generic_pdf_cover = True
+use_generic_pdf_cover
 from shutil import copyfile
 
 app = (Flask(__name__))
