@@ -43,7 +43,7 @@ def check_setting_int(config, cfg_name, item_name, def_val):
     return my_val
 
 CheckSection('General')
-DB_ROOT = check_setting_str(CFG, 'General', 'DB_ROOT', os.path.join(os.getcwd(), "Calibre Library"))
+DB_ROOT = check_setting_str(CFG, 'General', 'DB_ROOT', os.path.join(os.getcwd(), "data"))
 APP_DB_ROOT = check_setting_str(CFG, 'General', 'APP_DB_ROOT', os.getcwd())
 MAIN_DIR = check_setting_str(CFG, 'General', 'MAIN_DIR', os.getcwd())
 PORT = check_setting_int(CFG, 'General', 'PORT', 8083)

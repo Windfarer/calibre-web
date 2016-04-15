@@ -5,7 +5,7 @@ from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import *
 import os
-import config
+from . import config
 import re
 
 #calibre sort stuff

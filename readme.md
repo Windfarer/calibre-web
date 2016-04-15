@@ -29,7 +29,7 @@ Also available as [Docker image](https://registry.hub.docker.com/u/janeczku/cali
 2. Edit config.ini and set DB_ROOT to the path of the folder where your Calibre library (metadata.db) lives
 3. If you want to enable public user registration set PUBLIC_REG to 1
 4. Execute the command: `python cps.py`
-5. Point your browser to `http://localhost:8083` or `http://localhost:8083/feed` for the OPDS catalog 
+5. Point your browser to `http://localhost:8083` or `http://localhost:8083/feed` for the OPDS catalog
 
 **Default admin login:**    
 *Username:* admin   
@@ -38,8 +38,8 @@ Also available as [Docker image](https://registry.hub.docker.com/u/janeczku/cali
 ## Requirements
 
 Python 2.7+
-     
+
 Optionally, to enable on-the-fly conversion from EPUB to MOBI when using the send-to-kindle feature:     
 
 1. Create a `vendor` folder in the app root
-2. [Download](http://www.amazon.com/gp/feature.html?docId=1000765211) Amazon's KindleGen tool for your platform and place the binary named as `kindlegen` in this folder. 
+2. [Download](http://www.amazon.com/gp/feature.html?docId=1000765211) Amazon's KindleGen tool for your platform and place the binary named as `kindlegen` in this folder.
