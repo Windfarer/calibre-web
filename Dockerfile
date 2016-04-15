@@ -1,7 +1,7 @@
 FROM python:2.7.11
 MAINTAINER Windfarer <windfarer@gmail.com>
 
-RUN apt-get update && apt-get install libmagickwand-dev
+RUN apt-get update && apt-get install -y libmagickwand-dev
 
 ADD . /calibre_web
 WORKDIR /calibre_web
