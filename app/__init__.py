@@ -787,7 +787,7 @@ def upload():
                 copyfile(os.path.join(basedir, "static/generic_cover.jpg"), os.path.join(filepath, "cover.jpg"))
             else:
                 with Image(filename=saved_filename + "[0]", resolution=150) as img:
-                    img.compression_quality = 88
+                    #img.compression_quality = 88
                     img.save(filename=os.path.join(filepath, "cover.jpg"))
                     has_cover = 1
         is_author = db.session.query(db.Authors).filter(db.Authors.name == author).first()
